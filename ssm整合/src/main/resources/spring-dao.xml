@@ -1,0 +1,51 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           https://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc
+                           https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--1.关联数据库配置文件-->
+    <context:property-placeholder location="classpath:database.properties"/>
+
+
+    <!--2、连接池-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!--&lt;!&ndash;c3p0私有属性&ndash;&gt;
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+
+        &lt;!&ndash;是否自动提交&ndash;&gt;
+        <property name="autoCommitOnClose" value="false"/>
+        &lt;!&ndash;连接超时时间&ndash;&gt;
+        <property name="checkoutTimeout" value="10000"/>
+        &lt;!&ndash;失败重连次数&ndash;&gt;
+        <property name="acquireRetryAttempts" value="2"/>-->
+     </bean>
+
+
+    <!--3、sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--绑定mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!--配置dao接口扫描，动态的实现了Dao接口可以注入到Spring容器中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--要扫描的dao包-->
+        <property name="basePackage" value="com.zhu.dao"/>
+    </bean>
+
+</beans>

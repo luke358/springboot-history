@@ -1,0 +1,16 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "person.lists",
+      "type": "java.lang.String",
+      "description": "Description for person.lists."
+    },
+    {
+      "name": "person.name",
+      "type": "java.lang.String",
+      "description": "Description for person.name."
+    }
+  ],
+  "hints": []
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties" >
+    </properties>
+
+    <settings>
+    <!--可以直接用-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+<!--        开启全局缓存-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+    <!-- 单个导入-->
+    <!--  <typeAlias type="com.zhu.pojo.User" alias="User"/>-->
+        <!--导入模型下的所有包 名字和模型命名相同-->
+        <package name="com.zhu.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+        
+<!--        <environment id="test">-->
+<!--            <transactionManager type=""></transactionManager>-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="123456"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+    </environments>
+
+<!--    绑定接口-->
+    <mappers>
+        <mapper class="com.zhu.dao.UserMapper"></mapper>
+    </mappers>
+</configuration>

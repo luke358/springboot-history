@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    
+    <typeAliases>
+        <!-- 单个导入-->
+        <!--  <typeAlias type="com.zhu.pojo.User" alias="User"/>-->
+        <!--导入模型下的所有包 名字和模型命名相同-->
+        <package name="com.zhu.pojo"/>
+    </typeAliases>
+
+    <!--    绑定接口-->
+    <mappers>
+        <mapper class="com.zhu.dao.BookMapper"></mapper>
+    </mappers>
+</configuration>

@@ -1,0 +1,63 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--自动扫描包-->
+    <context:component-scan base-package="com.zhu.controller"/>
+
+    <!--让spring mvc 不处理静态资源-->
+    <mvc:default-servlet-handler/>
+
+    <!--
+    支持mvc注解驱动
+        在spring中一般采用@RequestMapping注解来完成映射关系
+        要想使@RequestMapping注解生效
+        必须向上下之中注册DefaultAnnotationHandlerMapping
+        和一个AnnotationMethodHandlerAdopter实例
+        这两个实例分别在类级别和方法级物处理。
+        而annotation-driven虎置帮助我们自动完成上述两个实例的注入。
+    -->
+    <mvc:annotation-driven/>
+
+    <!--JONS乱码问题配置-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                        <property name="failOnEmptyBeans" value="false"/>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--拦截器配置-->
+    <mvc:interceptors>
+       <!-- <mvc:interceptor>
+            &lt;!&ndash;包括这个请求下的所有请求&ndash;&gt;
+            <mvc:mapping path="/**"/>
+            &lt;!&ndash;选择执行过滤的类&ndash;&gt;
+            <bean class="com.zhu.config.MyInterceptor"/>
+        </mvc:interceptor>-->
+        <mvc:interceptor>
+            <!--包括这个请求下的所有请求-->
+            <mvc:mapping path="/user/**"/>
+            <!--选择执行过滤的类-->
+            <bean class="com.zhu.config.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

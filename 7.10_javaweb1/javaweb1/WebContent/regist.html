@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	注册页面<br>
+	<form action="http://localhost:7080/javaweb1/regist" method="post">
+		<input name="name" type="text" placeholder="请输入用户名"/><br>
+		<input name="pwd" type="password" placeholder="请输入密码"/><br>
+		<!-- 后台获取的 是 value 属性的值   这里 获取的值 只可能是  male 或者 female  和 男 女 无关 -->
+		性别:<label><input name="sex" type="radio" value="male" checked/>男 </label>
+		    <label><input name="sex" type="radio" value="female">女</label><br>
+		生日:<input name="birth" type="date"><br>
+		爱好:<input type="checkbox" name="hobby" value="basketball"/>篮球
+		   <input type="checkbox" name="hobby" value="sing"/>唱
+		   <input type="checkbox" name="hobby" value="jump"/>跳<br>
+		   
+		<input type="submit" value="注册"/>
+		<input type="reset" value="重置"/><br>
+		<br>
+	</form>
+</body>
+</html>
